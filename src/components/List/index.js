@@ -39,8 +39,7 @@ const List = (props) => {
                             <td>{item.type}</td>
                             <td>{item.price}</td>
                             <td>
-                                {/* TODO: Poner la llave */}
-                                {item.labels.map(label => (<span>{label}</span>))}
+                                {item.labels.map(label => (<span >{label}</span>))}
                             </td>
                             <td onClick={() => {
                                 reset();

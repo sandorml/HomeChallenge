@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import List from '../../components/List';
+import Label from '../../components/Label';
 import { connect } from 'react-redux';
 import { actions_func } from '../../actions'
 
@@ -17,10 +17,10 @@ class SmartList extends Component {
                     properties={this.props.properties}
                     labels={this.props.labels}
                     addProperty={this.props.addProperty}
-                    addLabel={this.props.addLabel}
                     updateProperty={this.props.updateProperty}
                     deleteProperty={this.props.deleteProperty}
                 />
+                <Label addLabel={this.props.addLabel}/>
             </div>
         )
     }

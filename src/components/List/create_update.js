@@ -36,15 +36,15 @@ const CreateUpdate = (props) => {
 
     return (
         <tr>
-            <td><input type="text" value={street?street:item.address.street} onChange={(e) => setStreet(e.target.value)} /></td>
-            <td><input type="text" value={city?city:item.address.city} onChange={(e) => setCity(e.target.value)} /></td>
-            <td><input type="text" value={state?state:item.address.state} onChange={(e) => setState(e.target.value)} /></td>
-            <td><input type="text" value={country?country:item.address.country} onChange={(e) => setCountry(e.target.value)} /></td>
-            <td><input type="text" value={size?size:item.size} onChange={(e) => setSize(e.target.value)} /></td>
+            <td><input type="text" value={street ? street : item.address.street} onChange={(e) => setStreet(e.target.value)} /></td>
+            <td><input type="text" value={city ? city : item.address.city} onChange={(e) => setCity(e.target.value)} /></td>
+            <td><input type="text" value={state ? state : item.address.state} onChange={(e) => setState(e.target.value)} /></td>
+            <td><input type="text" value={country ? country : item.address.country} onChange={(e) => setCountry(e.target.value)} /></td>
+            <td><input type="text" value={size ? size : item.size} onChange={(e) => setSize(e.target.value)} /></td>
             <td>
                 {/* TODO: arreglar esto, se hay q seleccionar uno obligado, no se puede querad por default y eso esta mal */}
 
-                <select name="type" value={type?type:item.type} onChange={(e) => setType(e.target.value)}>
+                <select name="type" value={type ? type : item.type} onChange={(e) => setType(e.target.value)}>
                     <option value="offices">Offices</option>
                     <option value="industrial">Industrial</option>
                     <option value="family home">Family home</option>
@@ -52,10 +52,13 @@ const CreateUpdate = (props) => {
                 </select>
             </td>
 
-            <td><input type="text" value={price?price:item.price} onChange={(e) => setPrice(e.target.value)} /></td>
+            <td><input type="text" value={price ? price : item.price} onChange={(e) => setPrice(e.target.value)} /></td>
             <td>
+                {console.log(labels)}
                 {labels.map((l) => (
-                    <span onClick={() => label.indexOf(l) === -1 ? setLabel([...label, l]) : null}>{l}</span>
+                    <span onClick={() =>
+                        label.indexOf(l) === -1 ? setLabel([...label, l.name]) : null
+                    }>{l.name}</span>
                 ))}
             </td>
             <td><div onClick={() => {

@@ -6,8 +6,6 @@ let initialState = {
 };
 
 const crud = (state = initialState, action) => {
-  console.log("action")
-  console.log(action)
   switch (action.type) {
 
     case actions_const.ADD_PROPERTY:

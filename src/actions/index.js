@@ -36,8 +36,9 @@ export const actions_func = {
   fetchLabels: () =>({
     type: actions_const.FETCH_LABELS
   }),
-  addLabel: () =>({
-    type: actions_const.ADD_LABEL
+  addLabel: (item) =>({
+    type: actions_const.ADD_LABEL,
+    item: item
   }),
   loadLabels: (data) => ({
     type: actions_const.LOAD_LABELS,
