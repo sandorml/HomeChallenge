@@ -1,4 +1,4 @@
-import {actions_const} from '../actions';
+import { actions_const } from '../actions';
 
 let initialState = {
   properties: []
@@ -20,6 +20,11 @@ const crud = (state = initialState, action) => {
         ...state
       }
     case actions_const.LOAD_PROPERTIES:
+      return {
+        ...state,
+        properties: action.data
+      }
+    case actions_const.FETCH_PROPERTIES:
       return {
         ...state
       }

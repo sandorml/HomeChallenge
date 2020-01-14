@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import List from './components/List';
+import { connect } from 'react-redux';
+import { actions_func } from './actions'
 import './App.css';
 
-function App() {
+function App(props) {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" onClick={()=>props.fetchProperties()}>
+      <List properties={props.data}/>
     </div>
   );
 }
 
-export default App;
+
+
+const mapStateToProps = state => (
+  {
+    data: state.crud.properties
+  }
+);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProperties: ()=> dispatch(actions_func.fetchProperties())
+  }
+};
+
+
+export default App = connect(mapStateToProps, mapDispatchToProps)(App)
+
+
