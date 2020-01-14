@@ -6,33 +6,33 @@ let initialState = {
 };
 
 const crud = (state = initialState, action) => {
+  console.log("action")
+  console.log(action)
   switch (action.type) {
 
     case actions_const.ADD_PROPERTY:
       return {
         ...state,
-        properties: [action.data.item, ...state.properties]
       }
     case actions_const.UPDATE_PROPERTY:
       {
-        let index = state.properties.findIndex(e => e.id === action.data.item.id);
-        let result = [...state.properties];
-        result[index] = action.data.item;
+        // let index = state.properties.findIndex(e => e.id === action.item.id);
+        // let result = [...state.properties];
+        // result[index] = action.item;
         return {
           ...state,
-          properties: result
 
         }
       }
     case actions_const.DELETE_PROPERTY:
       return {
         ...state,
-        properties: [...state.properties].filter(e => e.id !== action.data.item.id)
+        // properties: [...state.properties].filter(e => e.id !== action.item.id)
       }
     case actions_const.LOAD_PROPERTIES:
       return {
         ...state,
-        properties: action.data
+        properties: [...action.data]
       }
     case actions_const.FETCH_PROPERTIES:
       return {
@@ -50,7 +50,7 @@ const crud = (state = initialState, action) => {
     case actions_const.ADD_LABEL:
       return {
         ...state,
-        lables: [action.data.item, ...state.properties]
+        // lables: [action.item, ...state.properties]
       }
     default:
       return state

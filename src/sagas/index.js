@@ -5,9 +5,10 @@ import Api from '../services/api';
 
 
 
+
 function* fetchPropertiesSaga() {
     function* fetchProperties() {
-        var properties = yield Api.getProperties(({ data }) => data);
+        var properties = yield Api.getProperties(({ data }) => data.filter(e=> !e.is_deleted));
         yield put(actions_func.loadProperties(properties));
     }
     yield takeEvery(actions_const.FETCH_PROPERTIES, fetchProperties);
@@ -15,9 +16,11 @@ function* fetchPropertiesSaga() {
 
 
 function* addPropertySaga() {
-    function* addProperty(item) {
-        var property = yield Api.addProperty(({ data }) => data, item);
-        yield put(actions_func.addProperty(property));
+    function* addProperty({item}) {
+        console.log("addProp",item);
+        yield Api.addProperty(({ data }) => data, item);
+        yield put(actions_func.fetchProperties());
+        
     }
 
     yield takeEvery(actions_const.ADD_PROPERTY, addProperty);
@@ -27,28 +30,30 @@ function* addPropertySaga() {
 
 function* updatePropertySaga() {
 
-    function* updateProperty(item) {
-        var property = yield Api.updateProperty(({ data }) => data, item);
-        yield put(actions_func.updateProperty(property));
+    function* updateProperty({item}) {
+        yield Api.updateProperty(({ data }) => data, item);
+        yield put(actions_func.fetchProperties());
+
     }
     yield takeEvery(actions_const.UPDATE_PROPERTY, updateProperty);
 }
 
 function* deletePropertySaga() {
 
-    function* deleteProperty(item) {
-        item['is_deleted'] = false;
-        var property = yield Api.updateProperty(({ data }) => data,item);
-        yield put(actions_func.deleteProperty(property));
+    function* deleteProperty({item}) {
+        item.is_deleted = true;
+        yield Api.updateProperty(({ data }) => data,item);
+        yield put(actions_func.fetchProperties());
+
     }
     yield takeEvery(actions_const.DELETE_PROPERTY, deleteProperty);
 }
 
 function* addLabelSaga() {
 
-    function* addLabel(item) {
-        var label = yield Api.addLabel(({ data }) => data,item);
-        yield put(actions_func.addLabel(label));
+    function* addLabel({item}) {
+        yield Api.addLabel(({ data }) => data,item);
+        yield put(actions_func.fetchLabels());
     }
     yield takeEvery(actions_const.ADD_LABEL, addLabel);
 }
@@ -57,7 +62,7 @@ function* fetchLabelsSaga() {
 
     function* fetchLabels() {
         var labels = yield Api.fetchLabels(({ data }) => data);
-        yield put(actions_func.fetchLabels(labels));
+        yield put(actions_func.loadLabels(labels));
     }
     yield takeEvery(actions_const.FETCH_LABELS, fetchLabels);
 }
@@ -70,7 +75,7 @@ export default function* rootSaga() {
         addPropertySaga(),
         updatePropertySaga(),
         deletePropertySaga(),
-        addLabelSaga(),
-        fetchLabelsSaga()
+        // addLabelSaga(),
+        // fetchLabelsSaga()
     ])
 }

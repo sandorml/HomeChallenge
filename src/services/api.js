@@ -15,15 +15,10 @@ api_instance.interceptors.response.use(
 export default {
 
 
-    // getProperties: (responseHandler)=>{
-    //     api_instance.get('property')
-    //         .then(responseHandler)
-    //         .catch(err => console.log(err));
-    // }
-
     getProperties: async (responseHandler) => {
         try {
-            return responseHandler(await api_instance.get('property'));
+            let result = await api_instance.get('property');
+            return responseHandler(result);            
         } catch (e) {
             console.log(e)
         }
@@ -38,7 +33,7 @@ export default {
     },
     updateProperty: async (responseHandler,item) => {
         try {
-            return responseHandler(await api_instance.put('property',item));
+            return responseHandler(await api_instance.put(`property/${item.id}`,item));
         } catch (e) {
             console.log(e)
         }
