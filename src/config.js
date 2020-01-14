@@ -4,6 +4,7 @@ let port = 8000;
 let endpoint = "";
 
 
-const api = `${protocol}://${domain}${port}/${endpoint}`;
+const api = `${protocol}://${domain}:${port}/${endpoint}/`;
 
 export default api;
+
