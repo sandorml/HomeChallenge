@@ -38,7 +38,7 @@ class SmartList extends Component {
                     priceFilter
                     <input type="number" value={this.state.priceFilter.value} onChange={(e) => this.setState({
                         priceFilter: {
-                            value: e.target.value,
+                            value: Number.parseFloat(e.target.value),
                             lt: true
                         }
                     })} />
@@ -63,6 +63,14 @@ class SmartList extends Component {
                     order_by_sizeFilter
                     <input type="checkbox" checked={this.state.order_by_sizeFilter} onChange={(e) => this.setState({ order_by_sizeFilter: e.target.checked })} />
                     <div onClick={() => { this.props.order_by_sizeFilter(this.state.order_by_sizeFilter) }}>order_by_sizeFilter</div>
+
+                    <div onClick={() => { this.props.offlineFilter({
+                        deleted:this.state.deletedFilter,
+                        type: this.state.typeFilter,
+                        price: this.state.priceFilter,
+                        order_by_price: this.state.order_by_priceFilter,
+                        order_by_size: this.state.order_by_sizeFilter
+                    }) }}>offlinefilter</div>
 
                 </div>
                 <Label addLabel={this.props.addLabel} />
@@ -93,7 +101,7 @@ const mapDispatchToProps = (dispatch) => {
         deletedFilter: (deleted = true) => dispatch(actions_func.deletedFilter(deleted)),
         order_by_priceFilter: (order) => dispatch(actions_func.order_by_priceFilter(order)),
         order_by_sizeFilter: (order) => dispatch(actions_func.order_by_sizeFilter(order)),
-        offlineFilter: (data, filters) => dispatch(actions_func.offlineFilter(data, filters)),
+        offlineFilter: (filter) => dispatch(actions_func.offlineFilter(filter)),
 
     }
 };

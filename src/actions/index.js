@@ -70,10 +70,9 @@ export const actions_func = {
     type: actions_const.ORDER_BY_SIZE,
     order: order 
   }),
-  offlineFilter:(data,filters)=>({
+  offlineFilter:(filter)=>({
     type: actions_const.OFFLINE_FILTER,
-    data: data,
-    filters: filters
+    filter: filter
   }),
   
 

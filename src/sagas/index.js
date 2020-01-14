@@ -29,7 +29,6 @@ function* updatePropertySaga() {
     function* updateProperty({ item }) {
         yield Api.updateProperty((data) => data, item);
         yield put(actions_func.fetchProperties());
-
     }
     yield takeEvery(actions_const.UPDATE_PROPERTY, updateProperty);
 }
@@ -39,7 +38,6 @@ function* deletePropertySaga() {
         item.is_deleted = true;
         yield Api.updateProperty((data) => data, item);
         yield put(actions_func.fetchProperties());
-
     }
     yield takeEvery(actions_const.DELETE_PROPERTY, deleteProperty);
 }
@@ -73,7 +71,7 @@ function* typeFilterSaga() {
 
 function* priceFilterSaga() {
     function* priceFilter({ pattern, lt }) {
-        let properties = yield Api.getProperties(filters.priceFilter(pattern,lt));
+        let properties = yield Api.getProperties(filters.priceFilter(pattern, lt));
         yield put(actions_func.loadProperties(properties));
     }
     yield takeEvery(actions_const.PRICE_FILTER, priceFilter);
@@ -83,7 +81,7 @@ function* deletedFilterSaga() {
     function* deletedFilter({ deleted }) {
         let properties = yield Api.getProperties(filters.deletedFilter(deleted));
         yield put(actions_func.loadProperties(properties));
-        
+
     }
     yield takeEvery(actions_const.DELETED_FILTER, deletedFilter);
 }
@@ -106,6 +104,53 @@ function* order_by_sizeFilterSaga() {
 
 
 
+function* offlineFilterSaga() {
+    function* offlineFilter({ filter }) {
+        let properties = yield Api.getProperties(data => data);
+        console.log("all");
+        
+        console.log(properties);
+        console.log("deleted");
+        if (filter.deleted) {
+            properties = filters.deletedFilter(filter.deleted)(properties);
+        }
+        console.log(properties);
+        
+        console.log("type");
+        if (filter.type) {
+            properties = filters.typeFilter(filter.type)(properties);
+        }
+        
+        console.log(properties);
+        console.log("price",filter);
+
+        if (filter.price) {
+            properties = filters.priceFilter(filter.price.value,filter.price.lt)(properties);
+        }
+        
+        console.log(properties);
+        
+        console.log("order price");
+        if (filter.order_by_price) {
+            properties = filters.order_by_priceFilter(filter.order_by_price)(properties);
+        }
+        
+        console.log(properties);
+        
+        console.log("order size");
+        if (filter.order_by_size) {
+            properties = filters.order_by_sizeFilter(filter.order_by_size)(properties);
+        }
+        console.log(properties);
+
+        yield put(actions_func.loadProperties(properties));
+    }
+    yield takeEvery(actions_const.OFFLINE_FILTER, offlineFilter);
+}
+
+
+
+
 
 
 export default function* rootSaga() {
@@ -122,6 +167,6 @@ export default function* rootSaga() {
         deletedFilterSaga(),
         priceFilterSaga(),
         typeFilterSaga(),
-        
+        offlineFilterSaga()
     ])
 }

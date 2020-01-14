@@ -21,15 +21,6 @@ const crud = (state = initialState, action) => {
         ...state,
         labels: [...action.data]
       }
-    case actions_const.OFFLINE_FILTER:
-      let { data, filters } = action;
-      for (let i = 0; i < filters.length; i++) {
-        data = action.filters[i](data)
-      }
-      return {
-        ...state,
-        properties: data
-      }
     default:
       return state
   }
