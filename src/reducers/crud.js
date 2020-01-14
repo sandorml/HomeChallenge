@@ -1,9 +1,4 @@
-import {
-  ADD_PROPERTY,
-  UPDATE_PROPERTY,
-  DELETE_PROPERTY,
-  LOAD_PROPERTIES
-} from '../actions';
+import {actions_const} from '../actions';
 
 let initialState = {
   properties: []
@@ -12,19 +7,19 @@ let initialState = {
 const crud = (state = initialState, action) => {
   switch (action.type) {
 
-    case ADD_PROPERTY:
+    case actions_const.ADD_PROPERTY:
       return {
         ...state
       }
-    case UPDATE_PROPERTY:
+    case actions_const.UPDATE_PROPERTY:
       return {
         ...state
       }
-    case DELETE_PROPERTY:
+    case actions_const.DELETE_PROPERTY:
       return {
         ...state
       }
-    case LOAD_PROPERTIES:
+    case actions_const.LOAD_PROPERTIES:
       return {
         ...state
       }
