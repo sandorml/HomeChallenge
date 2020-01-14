@@ -8,7 +8,7 @@ import Api from '../services/api';
 
 function* fetchPropertiesSaga() {
     function* fetchProperties() {
-        var properties = yield Api.getProperties(({ data }) => data.filter(e=> !e.is_deleted));
+        let properties = yield Api.getProperties(({ data }) => data.filter(e => !e.is_deleted));
         yield put(actions_func.loadProperties(properties));
     }
     yield takeEvery(actions_const.FETCH_PROPERTIES, fetchProperties);
@@ -16,8 +16,7 @@ function* fetchPropertiesSaga() {
 
 
 function* addPropertySaga() {
-    function* addProperty({item}) {
-        console.log("addProp",item);
+    function* addProperty({ item }) {
         yield Api.addProperty(({ data }) => data, item);
         yield put(actions_func.fetchProperties());
     }
@@ -27,7 +26,7 @@ function* addPropertySaga() {
 
 
 function* updatePropertySaga() {
-    function* updateProperty({item}) {
+    function* updateProperty({ item }) {
         yield Api.updateProperty(({ data }) => data, item);
         yield put(actions_func.fetchProperties());
 
@@ -36,9 +35,9 @@ function* updatePropertySaga() {
 }
 
 function* deletePropertySaga() {
-    function* deleteProperty({item}) {
+    function* deleteProperty({ item }) {
         item.is_deleted = true;
-        yield Api.updateProperty(({ data }) => data,item);
+        yield Api.updateProperty(({ data }) => data, item);
         yield put(actions_func.fetchProperties());
 
     }
@@ -47,8 +46,8 @@ function* deletePropertySaga() {
 
 function* addLabelSaga() {
 
-    function* addLabel({item}) {
-        yield Api.addLabel(({ data }) => data,item);
+    function* addLabel({ item }) {
+        yield Api.addLabel(({ data }) => data, item);
         yield put(actions_func.fetchLabels());
     }
     yield takeEvery(actions_const.ADD_LABEL, addLabel);
@@ -56,11 +55,59 @@ function* addLabelSaga() {
 
 function* fetchLabelsSaga() {
     function* fetchLabels() {
-        var labels = yield Api.getLabels(({ data }) => data);
+        let labels = yield Api.getLabels(({ data }) => data);
         yield put(actions_func.loadLabels(labels));
     }
     yield takeEvery(actions_const.FETCH_LABELS, fetchLabels);
 }
+
+
+
+function* typeFilterSaga() {
+    function* typeFilter({ pattern }) {
+        let properties = yield Api.getProperties(({ data }) => data.filter(e => e.type === pattern));
+        yield put(actions_func.loadLabels(properties));
+    }
+    yield takeEvery(actions_const.TYPE_FILTER, typeFilter);
+}
+
+function* priceFilterSaga() {
+    function* priceFilter({ pattern, lt }) {
+        let properties = yield Api.getProperties(({ data }) => data.filter(e => lt ? e.price < pattern : e.price > pattern));
+        yield put(actions_func.loadLabels(properties));
+    }
+    yield takeEvery(actions_const.PRICE_FILTER, priceFilter);
+}
+
+function* deletedFilterSaga() {
+    function* deletedFilter({ deleted }) {
+        let properties = yield Api.getProperties(({ data }) => data.filter(e => !e.is_deleted));
+        yield put(actions_func.loadLabels(properties));
+    }
+    yield takeEvery(actions_const.DELETED_FILTER, deletedFilter);
+}
+
+function* order_by_priceFilterSaga() {
+    function* order_by_priceFilter({ order }) {
+        let properties = yield Api.getProperties(({ data }) => {
+            data.sort((a,b)=> order? a.price-b.price: a.price-b.price)
+        });
+        yield put(actions_func.loadLabels(properties));
+    }
+    yield takeEvery(actions_const.ORDER_BY_PRICE, order_by_priceFilter);
+}
+
+function* order_by_sizeFilterSaga() {
+    function* order_by_sizeFilter({ order }) {
+        let properties = yield Api.getProperties(({ data }) => {
+            data.sort((a,b)=> order? a.size-b.size: a.size-b.size)
+        });
+        yield put(actions_func.loadLabels(properties));
+    }
+    yield takeEvery(actions_const.ORDER_BY_PRICE, order_by_sizeFilter);
+}
+
+
 
 
 
@@ -71,6 +118,13 @@ export default function* rootSaga() {
         updatePropertySaga(),
         deletePropertySaga(),
         addLabelSaga(),
-        fetchLabelsSaga()
+        fetchLabelsSaga(),
+        typeFilterSaga(),
+        order_by_priceFilterSaga(),
+        order_by_sizeFilterSaga(),
+        deletedFilterSaga(),
+        priceFilterSaga(),
+        typeFilterSaga(),
+        
     ])
 }

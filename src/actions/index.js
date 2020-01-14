@@ -56,13 +56,14 @@ export const actions_func = {
     type: actions_const.PRICE_FILTER,
     pattern: pattern 
   }),
-  labelFilter:(pattern)=>({
+  labelFilter:(pattern,lt=true)=>({
     type: actions_const.LABEL_FILTER,
-    pattern: pattern 
+    pattern: pattern,
+    lt: lt
   }),
-  deletedFilter:(pattern)=>({
+  deletedFilter:(deleted=true)=>({
     type: actions_const.DELETED_FILTER,
-    pattern: pattern 
+    deleted: deleted 
   }),
   order_by_priceFilter:(order)=>({
     type: actions_const.ORDER_BY_PRICE,
