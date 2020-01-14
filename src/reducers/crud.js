@@ -7,21 +7,6 @@ let initialState = {
 
 const crud = (state = initialState, action) => {
   switch (action.type) {
-
-    case actions_const.ADD_PROPERTY:
-      return {
-        ...state,
-      }
-    case actions_const.UPDATE_PROPERTY:
-      {
-        return {
-          ...state
-        }
-      }
-    case actions_const.DELETE_PROPERTY:
-      return {
-        ...state
-      }
     case actions_const.LOAD_PROPERTIES:
       return {
         ...state,
@@ -36,13 +21,14 @@ const crud = (state = initialState, action) => {
         ...state,
         labels: [...action.data]
       }
-    case actions_const.FETCH_LABELS:
-      return {
-        ...state
+    case actions_const.OFFLINE_FILTER:
+      let { data, filters } = action;
+      for (let i = 0; i < filters.length; i++) {
+        data = action.filters[i](data)
       }
-    case actions_const.ADD_LABEL:
       return {
         ...state,
+        properties: data
       }
     default:
       return state

@@ -76,15 +76,7 @@ List.propTypes = {
     addProperty: PropTypes.func,
     addLabel: PropTypes.func,
     updateProperty: PropTypes.func,
-    deleteProperty: PropTypes.func,
-
-    // typeFilter : PropTypes.func,
-    // priceFilter : PropTypes.func,
-    // labelFilter : PropTypes.func,
-    // deletedFilter : PropTypes.func,
-    // order_by_priceFilter : PropTypes.func,
-    // order_by_sizeFilter : PropTypes.func
-
+    deleteProperty: PropTypes.func
 };
 List.defaultProps = {
     properties: [],

@@ -1,50 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
 
 const CreateUpdate = (props) => {
     const { labels, update, callback } = props;
-    let item = {};
-    if (update === null) {
-        item = {
-            address: {
-                street: "",
-                city: "",
-                state: "",
-                country: ""
-            },
-            type: "",
-            size: "",
-            price: "",
-            labels: [],
-        }
-    }
-    else {
-        item = { ...update }
-    }
-
-
-    const [street, setStreet] = useState();
-    const [city, setCity] = useState();
-    const [state, setState] = useState();
-    const [country, setCountry] = useState();
-    const [size, setSize] = useState();
-    const [type, setType] = useState();
+    const [street, setStreet] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [country, setCountry] = useState("");
+    const [size, setSize] = useState(0);
+    const [type, setType] = useState("");
     const [price, setPrice] = useState();
     const [label, setLabel] = useState([]);
 
+    useEffect(()=>{
+        
+        if (update) {
+            setStreet(update.address.street);
+            setCity(update.address.city);
+            setState(update.address.state);
+            setCountry(update.address.country);
+            setSize(update.size);
+            setType(update.type);
+            setPrice(update.price);
+            setLabel(update.labels);
+        }
+    },[update]);
+    
+
+    const saveHandler = () => {
+        let obj = {
+            address: {
+                street: street,
+                city: city,
+                state: state,
+                country: country
+            },
+            type: type,
+            size: Number.parseFloat(size),
+            price: Number.parseFloat(price),
+            labels: label
+
+        }
+        if (update) {
+            props.updateProperty({
+                ...update,
+                ...obj
+            });
+        }
+        else {
+            props.addProperty({
+                ...obj,
+                is_deleted: false
+            });
+        }
+        callback();
+    }
 
     return (
         <tr>
-            <td><input type="text" value={street ? street : item.address.street} onChange={(e) => setStreet(e.target.value)} /></td>
-            <td><input type="text" value={city ? city : item.address.city} onChange={(e) => setCity(e.target.value)} /></td>
-            <td><input type="text" value={state ? state : item.address.state} onChange={(e) => setState(e.target.value)} /></td>
-            <td><input type="text" value={country ? country : item.address.country} onChange={(e) => setCountry(e.target.value)} /></td>
-            <td><input type="text" value={size ? size : item.size} onChange={(e) => setSize(e.target.value)} /></td>
+            <td><input type="text" value={street} onChange={(e) => setStreet(e.target.value)} /></td>
+            <td><input type="text" value={city} onChange={(e) => setCity(e.target.value)} /></td>
+            <td><input type="text" value={state} onChange={(e) => setState(e.target.value)} /></td>
+            <td><input type="text" value={country} onChange={(e) => setCountry(e.target.value)} /></td>
+            <td><input type="number" value={size} onChange={(e) => setSize(e.target.value)} /></td>
             <td>
                 {/* TODO: arreglar esto, se hay q seleccionar uno obligado, no se puede querad por default y eso esta mal */}
 
-                <select name="type" value={type ? type : item.type} onChange={(e) => setType(e.target.value)}>
+                <select name="type" value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="offices">Offices</option>
                     <option value="industrial">Industrial</option>
                     <option value="family home">Family home</option>
@@ -52,9 +75,8 @@ const CreateUpdate = (props) => {
                 </select>
             </td>
 
-            <td><input type="text" value={price ? price : item.price} onChange={(e) => setPrice(e.target.value)} /></td>
+            <td><input type="number" value={price} onChange={(e) => setPrice(e.target.value)} /></td>
             <td>
-                {console.log(labels)}
                 {labels.map((l) => (
                     <span onClick={() => {
                         if (label.indexOf(l.name) === -1) {
@@ -64,34 +86,7 @@ const CreateUpdate = (props) => {
                     }>{l.name}</span>
                 ))}
             </td>
-            <td><div onClick={() => {
-                let obj = {
-                    address: {
-                        street: street,
-                        city: city,
-                        state: state,
-                        country: country
-                    },
-                    type: type,
-                    size: size,
-                    price: price,
-                    labels: label
-
-                }
-                if (update) {
-                    props.updateProperty({
-                        ...item,
-                        ...obj
-                    });
-                }
-                else {
-                    props.addProperty({
-                        ...obj,
-                        is_deleted: false
-                    });
-                }
-                callback();
-            }}>Save</div></td>
+            <td><div onClick={saveHandler}>Save</div></td>
 
         </tr>
     )

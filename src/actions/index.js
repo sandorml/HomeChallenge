@@ -10,10 +10,11 @@ export const actions_const = {
 
   TYPE_FILTER: "TYPE_FILTER",
   PRICE_FILTER: "PRICE_FILTER",
-  LABEL_FILTER: "LABEL_FILTER",
   DELETED_FILTER: "DELETED_FILTER",
   ORDER_BY_PRICE: "ORDER_PRICE",
   ORDER_BY_SIZE: "ORDER_BY_SIZE",
+
+  OFFLINE_FILTER: "OFFLINE_FILTER"
 
 }
 
@@ -52,12 +53,8 @@ export const actions_func = {
     type: actions_const.TYPE_FILTER,
     pattern: pattern 
   }),
-  priceFilter:(pattern)=>({
+  priceFilter:(pattern,lt=true)=>({
     type: actions_const.PRICE_FILTER,
-    pattern: pattern 
-  }),
-  labelFilter:(pattern,lt=true)=>({
-    type: actions_const.LABEL_FILTER,
     pattern: pattern,
     lt: lt
   }),
@@ -72,6 +69,11 @@ export const actions_func = {
   order_by_sizeFilter:(order)=>({
     type: actions_const.ORDER_BY_SIZE,
     order: order 
+  }),
+  offlineFilter:(data,filters)=>({
+    type: actions_const.OFFLINE_FILTER,
+    data: data,
+    filters: filters
   }),
   
 
