@@ -28,6 +28,35 @@ export default {
             console.log(e)
         }
 
+    },
+    addProperty: async (responseHandler,item) => {
+        try {
+            return responseHandler(await api_instance.post('property',item));
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    updateProperty: async (responseHandler,item) => {
+        try {
+            return responseHandler(await api_instance.put('property',item));
+        } catch (e) {
+            console.log(e)
+        }
+    },
+
+    addLabel: async (responseHandler,item) => {
+        try {
+            return responseHandler(await api_instance.post('labels',item));
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    getLabels: async (responseHandler,item) => {
+        try {
+            return responseHandler(await api_instance.get('labels',item));
+        } catch (e) {
+            console.log(e)
+        }
     }
 
 }

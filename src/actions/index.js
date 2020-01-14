@@ -3,20 +3,27 @@ export const actions_const = {
   UPDATE_PROPERTY: "UPDATE_PROPERTY",
   DELETE_PROPERTY: "DELETE_PROPERTY",
   LOAD_PROPERTIES: "LOAD_PROPERTIES",
-  FETCH_PROPERTIES: "FETCH_PROPERTIES"
+  FETCH_PROPERTIES: "FETCH_PROPERTIES",
+  FETCH_LABELS: "FETCH_LABELS",
+  ADD_LABEL: "ADD_LABEL",
+  LOAD_LABELS: "LOAD_LABELS"
+
 }
 
 export const actions_func = {
-  addProperty: () => ({
-    type: actions_const.ADD_PROPERTY
+  addProperty: (item) => ({
+    type: actions_const.ADD_PROPERTY,
+    item: item
   }),
 
-  updateProperty: () => ({
-    type: actions_const.UPDATE_PROPERTY
+  updateProperty: (item) => ({
+    type: actions_const.UPDATE_PROPERTY,
+    item: item
   }),
 
-  deleteProperty: () => ({
-    type: actions_const.DELETE_PROPERTY
+  deleteProperty: (item) => ({
+    type: actions_const.DELETE_PROPERTY,
+    item: item
   }),
 
   loadProperties: (data) => ({
@@ -25,7 +32,18 @@ export const actions_func = {
   }),
   fetchProperties: () =>({
     type: actions_const.FETCH_PROPERTIES
-  })
+  }),
+  fetchLabels: () =>({
+    type: actions_const.FETCH_LABELS
+  }),
+  addLabel: () =>({
+    type: actions_const.ADD_LABEL
+  }),
+  loadLabels: (data) => ({
+    type: actions_const.LOAD_LABELS,
+    data: data
+  }),
+  
 
 }
 

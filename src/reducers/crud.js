@@ -1,7 +1,8 @@
 import { actions_const } from '../actions';
 
 let initialState = {
-  properties: []
+  properties: [],
+  labels: []
 };
 
 const crud = (state = initialState, action) => {
@@ -9,15 +10,24 @@ const crud = (state = initialState, action) => {
 
     case actions_const.ADD_PROPERTY:
       return {
-        ...state
+        ...state,
+        properties: [action.data.item, ...state.properties]
       }
     case actions_const.UPDATE_PROPERTY:
-      return {
-        ...state
+      {
+        let index = state.properties.findIndex(e => e.id === action.data.item.id);
+        let result = [...state.properties];
+        result[index] = action.data.item;
+        return {
+          ...state,
+          properties: result
+
+        }
       }
     case actions_const.DELETE_PROPERTY:
       return {
-        ...state
+        ...state,
+        properties: [...state.properties].filter(e => e.id !== action.data.item.id)
       }
     case actions_const.LOAD_PROPERTIES:
       return {
@@ -27,6 +37,20 @@ const crud = (state = initialState, action) => {
     case actions_const.FETCH_PROPERTIES:
       return {
         ...state
+      }
+    case actions_const.LOAD_LABELS:
+      return {
+        ...state,
+        labels: action.data
+      }
+    case actions_const.FETCH_LABELS:
+      return {
+        ...state
+      }
+    case actions_const.ADD_LABEL:
+      return {
+        ...state,
+        lables: [action.data.item, ...state.properties]
       }
     default:
       return state
