@@ -107,42 +107,21 @@ function* order_by_sizeFilterSaga() {
 function* offlineFilterSaga() {
     function* offlineFilter({ filter }) {
         let properties = yield Api.getProperties(data => data);
-        console.log("all");
-        
-        console.log(properties);
-        console.log("deleted");
         if (filter.deleted) {
             properties = filters.deletedFilter(filter.deleted)(properties);
         }
-        console.log(properties);
-        
-        console.log("type");
         if (filter.type) {
             properties = filters.typeFilter(filter.type)(properties);
         }
-        
-        console.log(properties);
-        console.log("price",filter);
-
         if (filter.price) {
             properties = filters.priceFilter(filter.price.value,filter.price.lt)(properties);
         }
-        
-        console.log(properties);
-        
-        console.log("order price");
         if (filter.order_by_price) {
             properties = filters.order_by_priceFilter(filter.order_by_price)(properties);
         }
-        
-        console.log(properties);
-        
-        console.log("order size");
         if (filter.order_by_size) {
             properties = filters.order_by_sizeFilter(filter.order_by_size)(properties);
         }
-        console.log(properties);
-
         yield put(actions_func.loadProperties(properties));
     }
     yield takeEvery(actions_const.OFFLINE_FILTER, offlineFilter);
