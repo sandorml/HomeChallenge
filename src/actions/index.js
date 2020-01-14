@@ -6,33 +6,22 @@ export const actions_const = {
 }
 
 export const actions_func = {
-  addProperty: () =>
-    dispatch => {
-      dispatch({
-        type: actions_const.ADD_PROPERTY
-      });
-    },
+  addProperty: () => ({
+    type: actions_const.ADD_PROPERTY
+  }),
 
-  updateProperty: () =>
-    dispatch => {
-      dispatch({
-        type: actions_const.UPDATE_PROPERTY
-      });
-    },
+  updateProperty: () => ({
+    type: actions_const.UPDATE_PROPERTY
+  }),
 
-  deleteProperty: () =>
-    dispatch => {
-      dispatch({
-        type: actions_const.DELETE_PROPERTY
-      });
-    },
+  deleteProperty: () => ({
+    type: actions_const.DELETE_PROPERTY
+  }),
 
-  loadProperties: () =>
-    dispatch => {
-      dispatch({
-        type: actions_const.LOAD_PROPERTIES
-      });
-    },
+  loadProperties: (data) => ({
+    type: actions_const.LOAD_PROPERTIES,
+    data: data
+  })
 
 }
 
