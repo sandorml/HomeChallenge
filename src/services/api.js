@@ -7,8 +7,6 @@ const api_instance = axios.create({
 
 api_instance.interceptors.response.use(
     response => {
-        console.log(response.config.url);
-        console.log(response);
         return response;
     }
 )
@@ -16,11 +14,20 @@ api_instance.interceptors.response.use(
 
 export default {
 
-    
-    getProperties: (responseHandler)=>{
-        api_instance.get('property')
-            .then(responseHandler)
-            .catch(err => console.log(err));
+
+    // getProperties: (responseHandler)=>{
+    //     api_instance.get('property')
+    //         .then(responseHandler)
+    //         .catch(err => console.log(err));
+    // }
+
+    getProperties: async (responseHandler) => {
+        try {
+            return responseHandler(await api_instance.get('property'));
+        } catch (e) {
+            console.log(e)
+        }
+
     }
-    
+
 }
