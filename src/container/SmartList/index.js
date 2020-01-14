@@ -30,7 +30,7 @@ class SmartList extends Component {
 const mapStateToProps = state => (
     {
         properties: state.crud.properties,
-        labels: state.crud.properties
+        labels: state.crud.labels
     }
 );
 

@@ -16,18 +16,13 @@ const crud = (state = initialState, action) => {
       }
     case actions_const.UPDATE_PROPERTY:
       {
-        // let index = state.properties.findIndex(e => e.id === action.item.id);
-        // let result = [...state.properties];
-        // result[index] = action.item;
         return {
-          ...state,
-
+          ...state
         }
       }
     case actions_const.DELETE_PROPERTY:
       return {
-        ...state,
-        // properties: [...state.properties].filter(e => e.id !== action.item.id)
+        ...state
       }
     case actions_const.LOAD_PROPERTIES:
       return {
@@ -41,7 +36,7 @@ const crud = (state = initialState, action) => {
     case actions_const.LOAD_LABELS:
       return {
         ...state,
-        labels: action.data
+        labels: [...action.data]
       }
     case actions_const.FETCH_LABELS:
       return {
@@ -50,7 +45,6 @@ const crud = (state = initialState, action) => {
     case actions_const.ADD_LABEL:
       return {
         ...state,
-        // lables: [action.item, ...state.properties]
       }
     default:
       return state

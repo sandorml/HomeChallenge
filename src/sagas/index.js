@@ -20,16 +20,13 @@ function* addPropertySaga() {
         console.log("addProp",item);
         yield Api.addProperty(({ data }) => data, item);
         yield put(actions_func.fetchProperties());
-        
     }
-
     yield takeEvery(actions_const.ADD_PROPERTY, addProperty);
 }
 
 
 
 function* updatePropertySaga() {
-
     function* updateProperty({item}) {
         yield Api.updateProperty(({ data }) => data, item);
         yield put(actions_func.fetchProperties());
@@ -39,7 +36,6 @@ function* updatePropertySaga() {
 }
 
 function* deletePropertySaga() {
-
     function* deleteProperty({item}) {
         item.is_deleted = true;
         yield Api.updateProperty(({ data }) => data,item);
@@ -59,9 +55,8 @@ function* addLabelSaga() {
 }
 
 function* fetchLabelsSaga() {
-
     function* fetchLabels() {
-        var labels = yield Api.fetchLabels(({ data }) => data);
+        var labels = yield Api.getLabels(({ data }) => data);
         yield put(actions_func.loadLabels(labels));
     }
     yield takeEvery(actions_const.FETCH_LABELS, fetchLabels);
@@ -75,7 +70,7 @@ export default function* rootSaga() {
         addPropertySaga(),
         updatePropertySaga(),
         deletePropertySaga(),
-        // addLabelSaga(),
-        // fetchLabelsSaga()
+        addLabelSaga(),
+        fetchLabelsSaga()
     ])
 }
