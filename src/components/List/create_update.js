@@ -31,7 +31,7 @@ const CreateUpdate = (props) => {
     const [size, setSize] = useState();
     const [type, setType] = useState();
     const [price, setPrice] = useState();
-    const [label, setLabel] = useState();
+    const [label, setLabel] = useState([]);
 
 
     return (
@@ -56,8 +56,11 @@ const CreateUpdate = (props) => {
             <td>
                 {console.log(labels)}
                 {labels.map((l) => (
-                    <span onClick={() =>
-                        label.indexOf(l) === -1 ? setLabel([...label, l.name]) : null
+                    <span onClick={() => {
+                        if (label.indexOf(l.name) === -1) {
+                            setLabel([...label, l.name])
+                        }
+                    }
                     }>{l.name}</span>
                 ))}
             </td>
