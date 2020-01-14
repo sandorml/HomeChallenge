@@ -9,8 +9,8 @@ const CreateUpdate = (props) => {
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
     const [size, setSize] = useState(0);
-    const [type, setType] = useState("");
-    const [price, setPrice] = useState();
+    const [type, setType] = useState("offices");
+    const [price, setPrice] = useState(0);
     const [label, setLabel] = useState([]);
 
     useEffect(()=>{
@@ -65,8 +65,6 @@ const CreateUpdate = (props) => {
             <td><input type="text" value={country} onChange={(e) => setCountry(e.target.value)} /></td>
             <td><input type="number" value={size} onChange={(e) => setSize(e.target.value)} /></td>
             <td>
-                {/* TODO: arreglar esto, se hay q seleccionar uno obligado, no se puede querad por default y eso esta mal */}
-
                 <select name="type" value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="offices">Offices</option>
                     <option value="industrial">Industrial</option>

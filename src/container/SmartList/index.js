@@ -14,7 +14,6 @@ class SmartList extends Component {
         deletedFilter: false,
         order_by_priceFilter: true,
         order_by_sizeFilter: true
-
     }
 
     componentDidMount() {
