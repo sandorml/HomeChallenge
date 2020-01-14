@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import './style.css';
 
 
 const Label = (props) => {
     const [value, SetValue] = useState("");
     return (
-        <div>
-            <input type="text" value={value} onChange={(e) => SetValue(e.target.value)} />
-            <div onClick={() => {
+        <div className="label">
+            <input className="inline" type="text" value={value} onChange={(e) => SetValue(e.target.value)} />
+            <div className="btn inline" onClick={() => {
                 props.addLabel({
                     name: value
                 });
                 SetValue("");
-            }}>Save</div>
+            }}>Add Label</div>
         </div>
     );
 };

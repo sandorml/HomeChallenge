@@ -16,8 +16,22 @@ const List = (props) => {
 
     return (
         <div>
-
-            <table>
+            <div className="btn" onClick={() => {
+                reset();
+                setCreate_update(true)
+            }}>Add</div>
+            {create_update ?
+                <CreateUpdate
+                    properties={properties}
+                    labels={labels}
+                    update={edit}
+                    callback={() => {
+                        reset();
+                    }}
+                    addProperty={props.addProperty}
+                    updateProperty={props.updateProperty}
+                /> : null}
+            <table className="table">
                 <tr>
                     <th>Street</th>
                     <th>City</th>
@@ -39,32 +53,18 @@ const List = (props) => {
                             <td>{item.type}</td>
                             <td>{item.price}</td>
                             <td>
-                                {item.labels.map(label => (<span >{label}</span>))}
+                                {item.labels.map(label => (<span className="labeltag">{label}</span>))}
                             </td>
-                            <td onClick={() => {
+                            <td className="btn orange" onClick={() => {
                                 reset();
                                 setEdit(item);
                                 setCreate_update(true)
                             }}>Edit</td>
-                            <td onClick={() => props.deleteProperty(item)}>Delete</td>
+                            <td className="btn red" onClick={() => props.deleteProperty(item)}>Delete</td>
                         </tr>)
                 }
             </table>
-            <div onClick={() => {
-                reset();
-                setCreate_update(true)
-            }}>Add</div>
-            {create_update ?
-                <CreateUpdate
-                    properties={properties}
-                    labels={labels}
-                    update={edit}
-                    callback={() => {
-                        reset();
-                    }}
-                    addProperty={props.addProperty}
-                    updateProperty={props.updateProperty}
-                /> : null}
+
         </div >
 
     )

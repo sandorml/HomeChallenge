@@ -76,7 +76,7 @@ const CreateUpdate = (props) => {
             <td><input type="number" value={price} onChange={(e) => setPrice(e.target.value)} /></td>
             <td>
                 {labels.map((l) => (
-                    <span onClick={() => {
+                    <span className="labeltag" onClick={() => {
                         if (label.indexOf(l.name) === -1) {
                             setLabel([...label, l.name])
                         }

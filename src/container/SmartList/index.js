@@ -3,6 +3,7 @@ import List from '../../components/List';
 import Label from '../../components/Label';
 import { connect } from 'react-redux';
 import { actions_func } from '../../actions';
+import './style.css';
 
 class SmartList extends Component {
     state = {
@@ -22,57 +23,78 @@ class SmartList extends Component {
     }
     render() {
         return (
-            <div>
-                <List
-                    properties={this.props.properties}
-                    labels={this.props.labels}
-                    addProperty={this.props.addProperty}
-                    updateProperty={this.props.updateProperty}
-                    deleteProperty={this.props.deleteProperty}
-                />
-                <div>
-                    typeFilter
-                    <input type="text" value={this.state.typeFilter} onChange={(e) => this.setState({ typeFilter: e.target.value })} />
-                    <div onClick={() => { this.props.typeFilter(this.state.typeFilter) }}>Type Filter</div>
-                    priceFilter
-                    <input type="number" value={this.state.priceFilter.value} onChange={(e) => this.setState({
-                        priceFilter: {
-                            value: Number.parseFloat(e.target.value),
-                            lt: true
-                        }
-                    })} />
+            <div className="container">
 
-                    menor
+                <div className="filter">
+                    <ul>
+                        <li>
+                            <input type="text" value={this.state.typeFilter} onChange={(e) => this.setState({ typeFilter: e.target.value })} />
+                            <div className="btn" onClick={() => { this.props.typeFilter(this.state.typeFilter) }}>Type Filter</div>
+                        </li>
+                        <li>
+                            <input type="number" value={this.state.priceFilter.value} onChange={(e) => this.setState({
+                                priceFilter: {
+                                    value: Number.parseFloat(e.target.value),
+                                    lt: true
+                                }
+                            })} />
+
+                            menor
                     <input type="checkbox" checked={this.state.priceFilter.lt} onChange={(e) => this.setState({
-                        priceFilter: {
-                            value: this.state.priceFilter.value,
-                            lt: e.target.checked
-                        }
-                    })} />
-                    <div onClick={() => { this.props.priceFilter(this.state.priceFilter.value, this.state.priceFilter.lt) }}>Price Filter</div>
+                                priceFilter: {
+                                    value: this.state.priceFilter.value,
+                                    lt: e.target.checked
+                                }
+                            })} />
+                            <div className="btn" onClick={() => { this.props.priceFilter(this.state.priceFilter.value, this.state.priceFilter.lt) }}>Price Filter</div>
 
-                    deleted
-                    <input type="checkbox" checked={this.state.deleted} onChange={(e) => this.setState({ deletedFilter: e.target.checked })} />
-                    <div onClick={() => { this.props.deletedFilter(this.state.deletedFilter) }}>Deleted Filter</div>
+                        </li>
+                        <li>
+                            <input type="checkbox" checked={this.state.deleted} onChange={(e) => this.setState({ deletedFilter: e.target.checked })} />
+                            <div className="btn" onClick={() => { this.props.deletedFilter(this.state.deletedFilter) }}>Deleted Filter</div>
 
-                    order_by_priceFilter
-                    <input type="checkbox" checked={this.state.order_by_priceFilter} onChange={(e) => this.setState({ order_by_priceFilter: e.target.checked })} />
-                    <div onClick={() => { this.props.order_by_priceFilter(this.state.order_by_priceFilter) }}>order_by_priceFilter</div>
-                    
-                    order_by_sizeFilter
-                    <input type="checkbox" checked={this.state.order_by_sizeFilter} onChange={(e) => this.setState({ order_by_sizeFilter: e.target.checked })} />
-                    <div onClick={() => { this.props.order_by_sizeFilter(this.state.order_by_sizeFilter) }}>order_by_sizeFilter</div>
+                        </li>
+                        <li>
 
-                    <div onClick={() => { this.props.offlineFilter({
-                        deleted:this.state.deletedFilter,
-                        type: this.state.typeFilter,
-                        price: this.state.priceFilter,
-                        order_by_price: this.state.order_by_priceFilter,
-                        order_by_size: this.state.order_by_sizeFilter
-                    }) }}>offlinefilter</div>
+                            <input type="checkbox" checked={this.state.order_by_priceFilter} onChange={(e) => this.setState({ order_by_priceFilter: e.target.checked })} />
+                            <div className="btn" onClick={() => { this.props.order_by_priceFilter(this.state.order_by_priceFilter) }}>order_by_priceFilter</div>
 
+                        </li>
+                        <li>
+
+                            <input type="checkbox" checked={this.state.order_by_sizeFilter} onChange={(e) => this.setState({ order_by_sizeFilter: e.target.checked })} />
+                            <div className="btn" onClick={() => { this.props.order_by_sizeFilter(this.state.order_by_sizeFilter) }}>order_by_sizeFilter</div>
+
+                        </li>
+                    </ul>
+
+                    <div className="offline">
+                        <div className="btn" onClick={() => {
+                            this.props.offlineFilter({
+                                deleted: this.state.deletedFilter,
+                                type: this.state.typeFilter,
+                                price: this.state.priceFilter,
+                                order_by_price: this.state.order_by_priceFilter,
+                                order_by_size: this.state.order_by_sizeFilter
+                            })
+                        }}>offlinefilter</div>
+
+                    </div>
                 </div>
+
                 <Label addLabel={this.props.addLabel} />
+
+
+                <div className="list">
+                    <List
+                        properties={this.props.properties}
+                        labels={this.props.labels}
+                        addProperty={this.props.addProperty}
+                        updateProperty={this.props.updateProperty}
+                        deleteProperty={this.props.deleteProperty}
+                    />
+                </div>
+
             </div>
         )
     }
