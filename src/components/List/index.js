@@ -32,6 +32,7 @@ const List = (props) => {
                     updateProperty={props.updateProperty}
                 /> : null}
             <table className="table">
+                <thead>
                 <tr>
                     <th>Street</th>
                     <th>City</th>
@@ -42,6 +43,8 @@ const List = (props) => {
                     <th>Price</th>
                     <th>Labels</th>
                 </tr>
+                </thead>
+                <tbody>
                 {
                     properties.map(item =>
                         <tr key={item.id}>
@@ -53,7 +56,7 @@ const List = (props) => {
                             <td>{item.type}</td>
                             <td>{item.price}</td>
                             <td>
-                                {item.labels.map(label => (<span className="labeltag">{label}</span>))}
+                                {item.labels.map(label => (<span key={label} className="labeltag">{label}</span>))}
                             </td>
                             <td className="btn orange" onClick={() => {
                                 reset();
@@ -63,6 +66,7 @@ const List = (props) => {
                             <td className="btn red" onClick={() => props.deleteProperty(item)}>Delete</td>
                         </tr>)
                 }
+                </tbody>
             </table>
 
         </div >

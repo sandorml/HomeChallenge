@@ -14,9 +14,7 @@ const store = createStore(reducer,applyMiddleware(sagaMid));
 
 sagaMid.run(SagaApp)
 
-const unsubscribe = store.subscribe(() =>
-    console.log(store.getState())
-)
+
 
 
 ReactDOM.render(

@@ -19,7 +19,5 @@ export default {
             items.sort((a,b)=> order? a.size-b.size: b.size-a.size)
             return items
         }
-    },
-
-    
+    }    
 }
