@@ -3,7 +3,7 @@ export default {
         return (items) => items.filter(e => e.type === pattern)
     },
     priceFilter: (pattern,lt) => {
-        return (items) => items.filter(e => lt ? e.price < pattern : e.price > pattern)
+        return (items) => items.filter(e => lt ? e.price <= pattern : e.price >= pattern)
     },
     deletedFilter: (deleted) => {
         return (items) => items.filter(e => !((deleted || e.is_deleted) && !(deleted && e.is_deleted)))
