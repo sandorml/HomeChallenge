@@ -32,6 +32,13 @@ class SmartList extends Component {
                             <div className="btn" onClick={() => { this.props.typeFilter(this.state.typeFilter) }}>Type Filter</div>
                         </li>
                         <li>
+                            Smaller than
+                             <input type="checkbox" checked={this.state.priceFilter.lt} onChange={(e) => this.setState({
+                                priceFilter: {
+                                    value: this.state.priceFilter.value,
+                                    lt: e.target.checked
+                                }
+                            })} />
                             <input type="number" value={this.state.priceFilter.value} onChange={(e) => this.setState({
                                 priceFilter: {
                                     value: Number.parseFloat(e.target.value),
@@ -39,13 +46,7 @@ class SmartList extends Component {
                                 }
                             })} />
 
-                            menor
-                    <input type="checkbox" checked={this.state.priceFilter.lt} onChange={(e) => this.setState({
-                                priceFilter: {
-                                    value: this.state.priceFilter.value,
-                                    lt: e.target.checked
-                                }
-                            })} />
+
                             <div className="btn" onClick={() => { this.props.priceFilter(this.state.priceFilter.value, this.state.priceFilter.lt) }}>Price Filter</div>
 
                         </li>
@@ -80,6 +81,7 @@ class SmartList extends Component {
                         }}>offlinefilter</div>
 
                     </div>
+                    Este filtro a diferencia de los anteriores, encadena todos los filtros, no los hace independientes
                 </div>
 
                 <Label addLabel={this.props.addLabel} />
