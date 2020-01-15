@@ -1,6 +1,6 @@
 # HomeChallenge
 
-###Tecnologías:
+### Tecnologías:
 
 * react,
 * redux
