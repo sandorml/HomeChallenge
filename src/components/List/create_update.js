@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './style.css';
 import PropTypes from 'prop-types';
+import { Badge, Button } from 'reactstrap';
 
 const CreateUpdate = (props) => {
     const { labels, update, callback } = props;
@@ -13,8 +13,8 @@ const CreateUpdate = (props) => {
     const [price, setPrice] = useState(0);
     const [label, setLabel] = useState([]);
 
-    useEffect(()=>{
-        
+    useEffect(() => {
+
         if (update) {
             setStreet(update.address.street);
             setCity(update.address.city);
@@ -25,8 +25,8 @@ const CreateUpdate = (props) => {
             setPrice(update.price);
             setLabel(update.labels);
         }
-    },[update]);
-    
+    }, [update]);
+
 
     const saveHandler = () => {
         let obj = {
@@ -76,15 +76,19 @@ const CreateUpdate = (props) => {
             <td><input type="number" value={price} onChange={(e) => setPrice(e.target.value)} /></td>
             <td>
                 {labels.map((l) => (
-                    <span key={l.id} className="labeltag" onClick={() => {
-                        if (label.indexOf(l.name) === -1) {
-                            setLabel([...label, l.name])
+                    <Badge color="primary" pill key={l.id}
+                        onClick={() => {
+                            if (label.indexOf(l.name) === -1) {
+                                setLabel([...label, l.name])
+                            }
                         }
-                    }
-                    }>{l.name}</span>
+                        }
+                    >{l.name}</Badge>
                 ))}
             </td>
-            <td><div onClick={saveHandler}>Save</div></td>
+            <td>
+                <Button onClick={saveHandler} color="success">Save</Button>
+                </td>
 
         </tr>
     )

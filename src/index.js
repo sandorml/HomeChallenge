@@ -8,6 +8,7 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux'
 import SagaApp from './sagas';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const sagaMid = createSagaMiddleware()
 const store = createStore(reducer,applyMiddleware(sagaMid));
